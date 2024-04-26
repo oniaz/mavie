@@ -12,9 +12,14 @@ function getfilmsAxios() {
 
 function SearchFilms() {
     console.log("sirch falm!!");
-    const movie = document.getElementById("searchInput").value;
+    const movie = document.getElementById("searchInput").value.trim();
     console.log("from functions " + movie);
-    window.indexBridge.getSearchFilmsAxios(movie);
+    if (movie !== '') {
+        window.indexBridge.getSearchFilmsAxios(movie);
+    } else {
+        console.log("empty box!")
+        return;
+    }
 }
 
 function FilmInfo() {
