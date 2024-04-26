@@ -50,12 +50,52 @@ let indexBridge = {
             <p><strong>Plot:</strong> ${Plot}</p>
             <p><strong>Language:</strong> ${Language}</p>
             <p><strong>Country:</strong> ${Country}</p>
-            <p><strong>Awards:</strong> ${Awards}</p>
-            <h2>Ratings:</h2>
+            <p><strong>🏆 Awards:</strong> ${Awards}</p>
+            <h2>⭐ Ratings:</h2>
             <ul>
                 ${Ratings.map(rating => `<li>${rating.Source}: ${rating.Value}</li>`).join("")}
             </ul>
         `;
+
+        // Add Watch button
+        const link = `https://vidsrc.to/embed/movie/${result.imdbID}`;
+        const isAvailable = await checkLinkAvailability(link);
+        const watchButton = document.createElement("button");
+        movieInfoContainer.appendChild(watchButton);
+
+        if (isAvailable) {
+            watchButton.innerText = "Watch";
+
+            watchButton.addEventListener("click", () => {
+
+                const movieWatchPageUrl = "../views/watch.html"; // Replace with the URL of the "movie info" page
+                const movieId = result.imdbID;
+
+                // Encode the movie IMDb ID to ensure it's properly formatted for URL
+                const encodedMovieId = encodeURIComponent(movieId);
+
+                // Append the movie IMDb ID as a query parameter to the URL
+                const urlWithQuery = `${movieWatchPageUrl}?imdbID=${encodedMovieId}`;
+
+                // Redirect the user to the "movie info" page with the movie IMDb ID in the URL
+                window.location.href = urlWithQuery;
+            });
+
+        } else {
+            // Disable the button and display a message
+            watchButton.disabled = true;
+            watchButton.innerText = "Unavailable to watch";
+        };
+
+        // Function to check link availability
+        async function checkLinkAvailability(link) {
+            try {
+                const response = await fetch(link);
+                return response.ok;
+            } catch (error) {
+                return false;
+            }
+        }
     },
 
     getSearchFilmsAxios: async (movie) => {

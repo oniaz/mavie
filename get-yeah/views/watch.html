@@ -9,19 +9,25 @@
     <style>
         body {
             transition: background-color 0.5s;
-            font-family: cursive; /* Change font to cursive */
+            font-family: cursive;
+            /* Change font to cursive */
         }
+
         .dark-mode {
             background-color: #222;
             color: #f8f8f8;
         }
+
         .light-mode {
             background-color: #f8f8f8;
             color: #333;
         }
+
         .cinema-mode {
-            background-color: #000; /* Black background in cinema mode */
+            background-color: #000;
+            /* Black background in cinema mode */
         }
+
         button {
             background-color: #77b0aa;
             color: #003c43;
@@ -31,15 +37,21 @@
             cursor: pointer;
             transition: background-color 0.3s, color 0.3s;
         }
+
         .dark-mode button {
-            background-color: #003c43; /* Dark mode button background color */
-            color: #77b0aa; /* Dark mode button text color */
+            background-color: #003c43;
+            /* Dark mode button background color */
+            color: #77b0aa;
+            /* Dark mode button text color */
         }
+
         .cinema-mode header {
-            display: none; /* Hide header in cinema mode */
+            display: none;
+            /* Hide header in cinema mode */
         }
     </style>
 </head>
+
 <body class="light-mode">
     <header>
         <div class="logo">
@@ -47,10 +59,20 @@
         </div>
     </header>
     <!-- Embed the video player -->
-    <iframe id="videoFrame" src="https://vidsrc.to/embed/movie/385687" frameborder="0" allowfullscreen="true" width="100%" height="500"></iframe>
+    <iframe id="videoFrame" src="" frameborder="0" allowfullscreen="true"
+        width="100%" height="500"></iframe>
 
     <!-- <button onclick="toggleDarkMode()">Toggle Dark Mode</button> -->
     <button onclick="toggleCinemaMode()">Cinema Mode</button>
+
+    <script>
+        // Extract the IMDb ID from the URL query parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const imdbID = urlParams.get('imdbID');
+
+        const videoFrame = document.getElementById("videoFrame");
+        videoFrame.src = `https://vidsrc.to/embed/movie/${imdbID}`;
+    </script>
 
     <script>
         function toggleDarkMode() {
@@ -73,4 +95,5 @@
         }
     </script>
 </body>
+
 </html>
