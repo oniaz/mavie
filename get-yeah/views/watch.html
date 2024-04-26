@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Embedded Video</title>
+    <link rel="stylesheet" href="../src/styles.css" />
+    <style>
+        body {
+            transition: background-color 0.5s;
+            font-family: cursive; /* Change font to cursive */
+        }
+        .dark-mode {
+            background-color: #222;
+            color: #f8f8f8;
+        }
+        .light-mode {
+            background-color: #f8f8f8;
+            color: #333;
+        }
+        .cinema-mode {
+            background-color: #000; /* Black background in cinema mode */
+        }
+        button {
+            background-color: #77b0aa;
+            color: #003c43;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .dark-mode button {
+            background-color: #003c43; /* Dark mode button background color */
+            color: #77b0aa; /* Dark mode button text color */
+        }
+        .cinema-mode header {
+            display: none; /* Hide header in cinema mode */
+        }
+    </style>
+</head>
+<body class="light-mode">
+    <header>
+        <div class="logo">
+            <a href="index.html"><img src="../src/logo.png" alt="Logo"></a>
+        </div>
+    </header>
+    <!-- Embed the video player -->
+    <iframe id="videoFrame" src="https://vidsrc.to/embed/movie/385687" frameborder="0" allowfullscreen="true" width="100%" height="500"></iframe>
+
+    <!-- <button onclick="toggleDarkMode()">Toggle Dark Mode</button> -->
+    <button onclick="toggleCinemaMode()">Cinema Mode</button>
+
+    <script>
+        function toggleDarkMode() {
+            const body = document.body;
+            const button = document.querySelector('button');
+            body.classList.toggle('dark-mode');
+            button.classList.toggle('dark-mode');
+            body.classList.toggle('light-mode');
+        }
+
+        function toggleCinemaMode() {
+            const body = document.body;
+            const header = document.querySelector('header');
+            const buttons = document.querySelectorAll('button');
+            const videoFrame = document.getElementById('videoFrame');
+            body.classList.toggle('cinema-mode');
+            header.classList.toggle('cinema-mode');
+            buttons.forEach(btn => btn.classList.toggle('cinema-mode'));
+            videoFrame.classList.toggle('cinema-mode');
+        }
+    </script>
+</body>
+</html>

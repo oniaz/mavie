@@ -3,47 +3,29 @@
 
 <head>
   <meta charset="UTF-8" />
-  <title>Hello World!</title>
-  <link rel="stylesheet" href="../src/index.css" />
+  <title>Home</title>
+  <link rel="stylesheet" href="../src/styles.css" />
 </head>
 
 <body>
   <h1>🎞️ Mavie taim!</h1>
   <p>Let's watch some movies :3</p>
-
+  <div>
+    <button id="SearchPageButton" onclick="GoSearchPage();">Go to Search</button>
+    <script>
+      function GoSearchPage() {
+        window.location.href = "search.html";
+      }
+    </script>
+  </div>
 
   <section>
-    <!-- <div>
-      <h1>
-        Calling an API from Electron
-      </h1>
-      <div>
-        <p>
-          How to make a rest request from Electron and consume an API<br />
-        </p>
-      </div>
-      <div id="change">
-        <button id="callApi" onclick="doSomething();">I am bored. What should I do?</button>
-      </div>
-      <div id="whattodo">
-      </div> -->
-
-      <div>
-        <input type="text" id="searchInput">
-        <button id="searchInput" onclick="getSearchFilmsAxios();">search</button>
-      </div>
-    </div>
     <div id="hotfilms">
     </div>
-
-    <div id="searchedFilms">
-    </div>
-
   </section>
-  <script>
-  </script>
+
   <!-- You can also require other files to run in this process -->
-  <script defer src="../viewscripts/some.js"></script>
+  <script defer src="../viewscripts/functions.js"></script>
 
 
 </body>

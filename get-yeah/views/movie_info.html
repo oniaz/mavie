@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title> Movie Info </title>
+    <link rel="stylesheet" href="../src/styles.css" />
+</head>
+
+<header>
+    <div class="logo">
+        <a href="index.html"><img src="../src/logo.png" alt="Logo"></a>
+    </div>
+</header>
+
+<body>
+    <h1> Movie Info 🎥</h1>
+
+    <p id="imdb"></p>
+
+    <!-- <button id="searchButton" onclick="FilmInfo();">get info</button> -->
+
+    <section>
+        <div id="movie-info">
+        </div>
+    </section>
+
+    <script>
+        // Extract the IMDb ID from the URL query parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const imdbID = urlParams.get('imdbID');
+
+        document.getElementById("imdb")
+        imdb.innerText = imdbID;
+
+        document.addEventListener("DOMContentLoaded", function (event) {
+            FilmInfo();
+        });
+    </script>
+
+    <!-- You can also require other files to run in this process -->
+    <script defer src="../viewscripts/functions.js"></script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Search</title>
+  <link rel="stylesheet" href="../src/styles.css" />
+</head>
+
+<header>
+  <div class="logo">
+    <a href="index.html"><img src="../src/logo.png" alt="Logo"></a>
+  </div>
+</header>
+
+<body>
+  <h1> Movie Search 🔍</h1>
+  <div class="search-tip">
+    <strong>💡 Search Tip</strong><br> For the best results, enter a complete word from the movie title. <br>For example, if you're looking for 'The Hobbit: An Unexpected Journey' enter words like 'hobbit', 'journey', or 'unexpected' instead of an incomplete word like 'hobb' or 'journ'.
+  </div>
+  
+  <section>
+
+    <div class="search-container">
+      <input type="text" id="searchInput">
+      <button id="infobutton" onclick="SearchFilms();">Search</button>
+    </div>
+
+    <div id="searchedFilms">
+    </div>
+
+  </section>
+
+  <!-- You can also require other files to run in this process -->
+  <script defer src="../viewscripts/functions.js"></script>
+
+
+</body>
+
+</html>

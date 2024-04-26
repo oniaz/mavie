@@ -6,9 +6,7 @@
 const { contextBridge, ipcMain, ipcRenderer } = require('electron')
 
 //importing js file (to use its funstions and variables and all)
-const indexBridge = require('./viewscripts/index_preload')
+const Bridge = require('./viewscripts/bridge')
 
-if (location.href.endsWith('index.html')) {
-  Bridge = indexBridge
-}
+
 contextBridge.exposeInMainWorld('Bridge', Bridge)

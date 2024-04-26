@@ -1,10 +1,61 @@
 const { contextBridge, ipcMain, ipcRenderer } = require('electron')
 
 let indexBridge = {
+
     doSomethingAxios: async () => {
         var result = await ipcRenderer.invoke("doSomethingAxios");
         var whattodo = document.getElementById("whattodo");
         whattodo.innerText = JSON.parse(result).activity;
+    },
+
+    getFilmInfo: async (imdb) => {
+        console.log("from indexBridge " + imdb);
+        var result = await ipcRenderer.invoke("getFilmInfo", imdb);
+        console.log("from indexBridge, got the movie info!");
+        console.log(result.Title);
+        var movieInfoContainer = document.getElementById("movie-info");
+        // movieInfoContainer.innerText = result.Title;
+
+        console.log("elemnt exists");
+
+        // Extract movie info from the API response
+        const {
+            Title,
+            Year,
+            Rated,
+            Released,
+            Genre,
+            Director,
+            Writer,
+            Actors,
+            Plot,
+            Language,
+            Country,
+            Awards,
+            Poster,
+            Ratings
+        } = result;
+
+        // Update the #movie-info div with the movie details
+        // const movieInfoContainer = document.getElementById("movie-info");
+        movieInfoContainer.innerHTML = `
+            <h1>${Title} (${Year})</h1>
+            <img src="${Poster}" alt="Movie Poster">
+            <p><strong>Rated:</strong> ${Rated}</p>
+            <p><strong>Released:</strong> ${Released}</p>
+            <p><strong>Genre:</strong> ${Genre}</p>
+            <p><strong>Director:</strong> ${Director}</p>
+            <p><strong>Writer:</strong> ${Writer}</p>
+            <p><strong>Actors:</strong> ${Actors}</p>
+            <p><strong>Plot:</strong> ${Plot}</p>
+            <p><strong>Language:</strong> ${Language}</p>
+            <p><strong>Country:</strong> ${Country}</p>
+            <p><strong>Awards:</strong> ${Awards}</p>
+            <h2>Ratings:</h2>
+            <ul>
+                ${Ratings.map(rating => `<li>${rating.Source}: ${rating.Value}</li>`).join("")}
+            </ul>
+        `;
     },
 
     getSearchFilmsAxios: async (movie) => {
@@ -25,8 +76,12 @@ let indexBridge = {
         searchedFilmsContainer.innerHTML = "";
 
         result.forEach(movie => {
+            if (movie.Poster === 'N/A') {
+                return; // Skip this iteration of the loop
+            }
             // Create a div element for the movie
             var movieDiv = document.createElement("div");
+            movieDiv.classList.add("movie-card"); // Add a class for styling
 
             // Set the IMDb ID as the ID of the movie div
             movieDiv.id = movie.imdb_id;
@@ -35,10 +90,12 @@ let indexBridge = {
             var posterImg = document.createElement("img");
             posterImg.src = movie.Poster; // Set the src attribute to the URL of the poster image
             posterImg.alt = movie.Title; // Set the alt attribute to the movie title
+            posterImg.classList.add("poster-image"); // Add a class for styling
 
             // Create a p element for the title
             var titlePara = document.createElement("p");
             titlePara.textContent = movie.Title;
+            titlePara.classList.add("movie-title"); // Add a class for styling
 
             // Append the poster and title elements to the movie div
             movieDiv.appendChild(posterImg);
@@ -50,9 +107,19 @@ let indexBridge = {
             // Add click event listener to the movie div
             movieDiv.addEventListener("click", function () {
                 // Construct the URL for the embedding page
-                const embedUrl = `https://vidsrc.to/embed/movie/${movie.imdbID}`;
-                // Redirect the user to the embedding page
-                window.location.href = embedUrl;
+                // const embedUrl = `https://vidsrc.to/embed/movie/${movie.imdbID}`;
+
+                const movieInfoPageUrl = "../views/movie_info.html"; // Replace with the URL of the "movie info" page
+                const movieId = movie.imdbID;
+
+                // Encode the movie IMDb ID to ensure it's properly formatted for URL
+                const encodedMovieId = encodeURIComponent(movieId);
+
+                // Append the movie IMDb ID as a query parameter to the URL
+                const urlWithQuery = `${movieInfoPageUrl}?imdbID=${encodedMovieId}`;
+
+                // Redirect the user to the "movie info" page with the movie IMDb ID in the URL
+                window.location.href = urlWithQuery;
             });
         });
 

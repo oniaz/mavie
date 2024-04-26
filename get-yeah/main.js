@@ -25,7 +25,7 @@ function createWindow() {
   });
 
   mainWindow.loadFile(path.join(__dirname, './views/index.html'));
-  // mainWindow.webContents.openDevTools();
+  mainWindow.webContents.openDevTools();
 
   // prevent ads lololol
   mainWindow.webContents.setWindowOpenHandler(() => {
@@ -67,7 +67,14 @@ ipcMain.handle("getSearchFilmsAxios", async (event, movie) => {
 
 });
 
-
+ipcMain.handle("getFilmInfo", async (event, imdb) => {
+  console.log("from the main: " + imdb);
+  const apiUrl = `http://www.omdbapi.com/?apikey=f357aabe&i=${imdb}`;
+  const response = await fetch(apiUrl);
+  const body = await response.json();
+  console.log(body);
+  return (body);
+});
 
 // idk what those are
 app.whenReady().then(() => {
