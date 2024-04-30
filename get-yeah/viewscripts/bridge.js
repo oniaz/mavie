@@ -38,6 +38,21 @@ let indexBridge = {
 
             // Append the movie div to the container
             hotfilmsContainer.appendChild(movieDiv);
+
+            movieDiv.addEventListener("click", function () {
+
+                const movieInfoPageUrl = "../views/movie_info.html"; // Replace with the URL of the "movie info" page
+                const movieId = movie.imdb;
+
+                // Encode the movie IMDb ID to ensure it's properly formatted for URL
+                const encodedMovieId = encodeURIComponent(movieId);
+
+                // Append the movie IMDb ID as a query parameter to the URL
+                const urlWithQuery = `${movieInfoPageUrl}?imdbID=${encodedMovieId}`;
+
+                // Redirect the user to the "movie info" page with the movie IMDb ID in the URL
+                window.location.href = urlWithQuery;
+            });
         });
     },
 
