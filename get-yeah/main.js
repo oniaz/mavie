@@ -52,6 +52,13 @@ ipcMain.handle("getfilmsAxios", async () => {
 });
 
 
+ipcMain.handle("getPopularFilms", async () => {
+  const response = await fetch("https://api.npoint.io/2fba5056b01154250947");
+  const body = await response.json();
+  console.log(body[0]);
+  return (body);
+});
+
 ipcMain.handle("getSearchFilmsAxios", async (event, movie) => {
   console.log("from the main: " + movie);
   const apiUrl = `http://www.omdbapi.com/?apikey=f357aabe&s=${movie}&type=movie`;

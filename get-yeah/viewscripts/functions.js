@@ -10,6 +10,11 @@ function getfilmsAxios() {
     window.indexBridge.getfilmsAxios();
 }
 
+function getPopularFilms() {
+    console.log("paplar falms!!");
+    window.indexBridge.getPopularFilms();
+}
+
 function SearchFilms() {
     console.log("sirch falm!!");
     const movie = document.getElementById("searchInput").value.trim();

@@ -8,6 +8,39 @@ let indexBridge = {
         whattodo.innerText = JSON.parse(result).activity;
     },
 
+    getPopularFilms: async () => {
+        var result = await ipcRenderer.invoke("getPopularFilms");
+        var hotfilmsContainer = document.getElementById("hotfilms");
+
+        hotfilmsContainer.innerHTML = "";
+        result.forEach(movie => {
+            // Create a div element for the movie
+            var movieDiv = document.createElement("div");
+            movieDiv.classList.add("movie-card"); // Add a class for styling
+
+            // Set the IMDb ID as the ID of the movie div
+            movieDiv.id = movie.imdb;
+
+            // Create an img element for the poster
+            var posterImg = document.createElement("img");
+            posterImg.src = movie.poster; // Set the src attribute to the URL of the poster image
+            posterImg.alt = movie.title; // Set the alt attribute to the movie title
+            posterImg.classList.add("poster-image"); // Add a class for styling
+
+            // Create a p element for the title
+            var titlePara = document.createElement("p");
+            titlePara.textContent = movie.title;
+            titlePara.classList.add("movie-title"); // Add a class for styling
+
+            // Append the poster and title elements to the movie div
+            movieDiv.appendChild(posterImg);
+            movieDiv.appendChild(titlePara);
+
+            // Append the movie div to the container
+            hotfilmsContainer.appendChild(movieDiv);
+        });
+    },
+
     getFilmInfo: async (imdb) => {
         console.log("from indexBridge " + imdb);
         var result = await ipcRenderer.invoke("getFilmInfo", imdb);
