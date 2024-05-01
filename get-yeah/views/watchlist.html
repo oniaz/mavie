@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <title> Movie Info </title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../src/styles.css" />
+    <title>Watchlisty</title>
 </head>
 
 <body>
@@ -21,29 +22,7 @@
             </div>
         </nav>
     </header>
-
-    <h1> Movie Info 🎥</h1>
-
-    <section>
-        <div id="movie-info">
-            <p id="imdb"></p>
-        </div>
-    </section>
-
-    <script>
-        const urlParams = new URLSearchParams(window.location.search);
-        const imdbID = urlParams.get('imdbID');
-
-        document.getElementById("imdb")
-        imdb.innerText = imdbID;
-
-        document.addEventListener("DOMContentLoaded", function (event) {
-            FilmInfo();
-        });
-    </script>
-    <script defer src="../viewscripts/functions.js"></script>
-
-
+    watchlisty
 </body>
 
 </html>

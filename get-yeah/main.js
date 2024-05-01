@@ -15,8 +15,8 @@ if (require('electron-squirrel-startup')) {
 function createWindow() {
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 1000,
+    height: 1000,
     webPreferences: {
       nodeIntegration: true,
       preload: path.join(__dirname, "./preload.js")
@@ -38,19 +38,6 @@ function createWindow() {
   });
 };
 
-ipcMain.handle("doSomethingAxios", async () => {
-  const response = await fetch("http://www.boredapi.com/api/activity/");
-  const body = await response.text();
-  return body;
-});
-
-ipcMain.handle("getfilmsAxios", async () => {
-  const response = await fetch("https://vidsrc.to/vapi/movie/new");
-  const body = await response.json();
-  console.log(body.result.items[0]);
-  return (body.result.items);
-});
-
 
 ipcMain.handle("getPopularFilms", async () => {
   const response = await fetch("https://api.npoint.io/2fba5056b01154250947");
@@ -59,7 +46,7 @@ ipcMain.handle("getPopularFilms", async () => {
   return (body);
 });
 
-ipcMain.handle("getSearchFilmsAxios", async (event, movie) => {
+ipcMain.handle("getSearchFilms", async (event, movie) => {
   console.log("from the main: " + movie);
   const apiUrl = `http://www.omdbapi.com/?apikey=f357aabe&s=${movie}&type=movie`;
   const response = await fetch(apiUrl);
@@ -71,7 +58,6 @@ ipcMain.handle("getSearchFilmsAxios", async (event, movie) => {
     console.log(body);
     return (body);
   }
-
 });
 
 ipcMain.handle("getFilmInfo", async (event, imdb) => {

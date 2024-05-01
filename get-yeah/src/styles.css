@@ -1,125 +1,272 @@
 /* Header */
 
-header {
-  background-color: #333; /* Set the desired background color */
-  padding: 0px 15px; /* Adjust padding for spacing */
-  height: 60px; /* Set the desired height */
-  overflow: hidden; /* Clear the float */
+nav {
+  background-color: #B7C9F2;
+  display: flex;
+  justify-content: space-between;
+  border-radius: 5px;
+  height: 90px;
+}
+
+nav a {
+  padding: 5px;
+  text-decoration: none;
 }
 
 .logo {
-  float: left; /* Float the logo to the left */
-  height: 100%; /* Make the logo div fill the entire height of the header */
+  padding: 10px;
+  height: 100%;
 }
 
 .logo img {
-  max-height: 100%; /* Set the maximum height of the logo image to fill the logo div */
+  max-height: 70px;
 }
 
+.pages {
+  padding: 20px;
+  margin-top: 10px;
+}
 
+.pages button {
+  float: right;
+  background-color: #191919;
+  color: beige;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  padding: 0px;
+}
 
+.pages img {
+  max-height: 30px;
+}
 
-/* Home Page */
+/* General */
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
     Arial, sans-serif;
-  background-color: #f8f8f8;
   margin: auto;
   max-width: 38rem;
   padding: 2rem;
 }
 
-h1 {
+button {
+  color: #fff;
+}
+
+#mavie-tiem {
   text-align: center;
   margin-top: 50px;
   font-size: 36px;
   color: #333;
 }
 
-p {
+#tagline {
   text-align: center;
   font-size: 18px;
-  color: #666;
-}
-
-#SearchPageButton {
-  display: block;
-  margin: 30px auto;
-  padding: 15px 30px;
-  font-size: 18px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+  color: #323232;
 }
 
 #SearchPage:hover {
   background-color: #0056b3;
 }
 
+/* Home Page */
+
+#SearchPageButton {
+  display: block;
+  margin: 30px auto;
+  padding: 15px 30px;
+  font-size: 18px;
+  background-color: #FB88B4;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#lamp {
+  display: block;
+  margin: 30px auto;
+  padding: 15px 15px;
+  font-size: 18px;
+  background-color: #fff3ad;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
 /* Search Page */
 
 .search-tip {
-  background-color: #f7f7f7; /* Light gray background */
-  color: #333; /* Dark gray text color */
-  padding: 10px; /* Padding around the message */
-  border: 1px solid #ccc; /* Light border */
-  border-radius: 5px; /* Rounded corners */
-  margin-bottom: 20px; /* Spacing below the message */
+  background-color: #f7f7f7;
+  color: #515151;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.search-tip .highlight {
+  font-style: italic;
+  color: #191919;
+}
+
+.search-tip .tip {
+  padding: 5px;
 }
 
 .search-container {
   width: 117%;
-  margin-bottom: 20px; /* Spacing below the search box */
+  margin-bottom: 20px;
 }
 
 .search-container input[type="text"] {
-  padding: 10px; /* Padding inside the input box */
-  width: 70%; /* Adjust width as a percentage of the container */
-  border: 1px solid #ccc; /* Light border */
-  border-radius: 5px; /* Rounded corners */
+  padding: 10px;
+  width: 70%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
 .search-container button {
-  padding: 10px 20px; /* Padding inside the button */
-  background-color: #007bff; /* Blue background */
-  color: #fff; /* White text color */
-  border: none; /* No border */
-  border-radius: 5px; /* Rounded corners */
-  cursor: pointer; /* Show pointer cursor on hover */
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 .search-container button:hover {
-  background-color: #0056b3; /* Darker blue on hover */
+  background-color: #0056b3;
 }
 
-/* Index Preload Styles (movie listing) */
+/* Movie Listing */
+#hotfilms,
+#searchedFilms {
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.search-done {
+  background-color: #B7C9F2;
+}
 
 .movie-card {
-  display: inline-block; /* Display cards inline */
-  width: calc(25% - 20px); /* Set width for each card (25% of container width minus margin) */
-  margin: 10px; /* Margin between cards */
-  text-align: center; /* Center align content */
-  overflow: hidden; /* Ensure consistent height for all cards */
+  background-color: #000000;
+  display: inline-block;
+  /* Display cards inline */
+  width: calc(25% - 20px);
+  /* Set width for each card (25% of container width minus margin) */
+  margin: 10px;
+  /* Margin between cards */
+  text-align: center;
+  /* Center align content */
+  overflow: hidden;
+  /* Ensure consistent height for all cards */
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 .poster-image {
-  width: 100%; /* Set width of poster image to 100% of its container */
-  height: auto; /* Automatically adjust height */
-  margin-bottom: 10px; /* Margin at the bottom to separate poster from title */
+  width: 100%;
+  height: auto;
+  /* margin-bottom: 10px; */
+  /* Margin at the bottom to separate poster from title */
+  border-radius: 5px;
 }
 
 .movie-title {
-  margin: 0; /* Remove default margin */
-  font-size: 14px; /* Adjust font size as needed */
-  line-height: 18px; /* Specify line height to ensure consistent spacing */
-  height: 3.6em; /* Set specific height for the title area (3.6em = 3 lines of text) */
-  overflow: hidden; /* Hide overflow to ensure consistent height */
-  text-overflow: ellipsis; /* Add ellipsis for long titles */
-  display: -webkit-box; /* For old Safari */
-  -webkit-line-clamp: 3; /* Limit number of lines to 3 */
-  -webkit-box-orient: vertical; /* Vertical layout */
+  color: beige;
+  padding: 4px;
+  margin: 0;
+  font-size: 14px;
+  line-height: 18px;
+  height: 3.6em;
+  /* Set specific height for the title area (3.6em = 3 lines of text) */
+  overflow: hidden;
+  /* Hide overflow to ensure consistent height */
+  text-overflow: ellipsis;
+  /* Add ellipsis for long titles */
+  /* display: -webkit-box; */
+  /* For old Safari */
+  -webkit-line-clamp: 3;
+  /* Limit number of lines to 3 */
+  /* -webkit-box-orient: vertical; */
+  /* Vertical layout */
+  display: flex;
+  /* Use flexbox */
+  justify-content: center;
+  /* Center horizontally */
+  align-items: center;
+  /* Center vertically */
 }
+
+/* Movie Info */
+#movie-info {
+  padding: 10px;
+  border-radius: 5px;
+  border: 2px solid #FF884B; /* 1px solid border with color FF884B */
+}
+
+/* #movie-info h1{
+}
+#movie-info p{
+}
+
+#movie-info img{
+} */
+
+.watch-button {
+  background-color: #FF884B;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 5px;
+  padding: 15px 30px;
+  font-size: 18px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Cinema */
+
+.cinema-mode {
+  background-color: #000;
+}
+
+#cinema-mode-button {
+  background-color: #000000;
+  color: rgb(156, 156, 156);
+  border: rgb(93, 93, 93);
+  padding: 5px 15px;
+  font-size: 14px;
+  font-style: normal;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  border-radius: 5px;
+}
+
+.cinema-mode header {
+  display: none;
+  /* Hide header in cinema mode */
+}
+
+/* Light/Dark Mode */
+/* .dark-mode {
+  background-color: #333;
+  color: rgb(254, 254, 254);
+}
+
+.light-mode {
+  background-color: #f8f8f8;
+  color: #333;
+} */
+
+/* .dark-mode button {
+  background-color: #000000;
+  color: beige;
+} */

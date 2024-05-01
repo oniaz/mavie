@@ -7,11 +7,28 @@
   <link rel="stylesheet" href="../src/styles.css" />
 </head>
 
-<body>
-  <h1>🎞️ Mavie taim!</h1>
-  <p>Let's watch some movies :3</p>
+<body class="light-mode">
+  <header>
+    <nav>
+      <div class="logo">
+        <a href="index.html"><img src="../src/logo.png" alt="Logo"></a>
+      </div>
+      <div class="pages">
+        <a class="search" href="./search.html"><img src="../src/search.png"></a>
+        <a class="watchlist" href="./watchlist.html"><img src="../src/watchlist.png" alt=""></a>
+        <a class="favourite" href="./favourites.html"><img src="../src/fav.png"></a>
+        <a class="history" href="./history.html"><img src="../src/history.png"></a>
+      </div>
+    </nav>
+  </header>
+
+  <h1 id="mavie-tiem">🎞️ Mavie taim!</h1>
+  <p id="tagline">Let's watch some movies :3</p>
+
+  <!-- <button id="lamp" onclick="toggleDarkMode();">💡</button> -->
+
+  <button id="SearchPageButton" onclick="GoSearchPage();">Search a Movie</button>
   <div>
-    <button id="SearchPageButton" onclick="GoSearchPage();">Go to Search</button>
     <script>
       function GoSearchPage() {
         window.location.href = "search.html";
@@ -26,14 +43,12 @@
   </section>
 
   <script>
-            document.addEventListener("DOMContentLoaded", function (event) {
-              getPopularFilms();
-        });
-    
+    document.addEventListener("DOMContentLoaded", function (event) {
+      getPopularFilms();
+    });
   </script>
-  <!-- You can also require other files to run in this process -->
-  <script defer src="../viewscripts/functions.js"></script>
 
+  <script defer src="../viewscripts/functions.js"></script>
 
 </body>
 
