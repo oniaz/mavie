@@ -167,6 +167,8 @@ button {
   overflow: hidden;
   /* Ensure consistent height for all cards */
   border-radius: 5px;
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
   cursor: pointer;
 }
 
@@ -179,10 +181,10 @@ button {
 }
 
 .movie-title {
-  color: beige;
+  color: rgb(255, 255, 255);
   padding: 4px;
   margin: 0;
-  font-size: 14px;
+  font-size: 15px;
   line-height: 18px;
   height: 3.6em;
   /* Set specific height for the title area (3.6em = 3 lines of text) */
