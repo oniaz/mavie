@@ -47,10 +47,7 @@ let indexBridge = {
         var result = await ipcRenderer.invoke("getFilmInfo", imdb);
         console.log("from indexBridge, got the movie info!");
         console.log(result.Title);
-        var movieInfoContainer = document.getElementById("movie-info");
-        // movieInfoContainer.innerText = result.Title;
-
-        console.log("elemnt exists");
+        console.log("element exists");
 
         // Extract movie info from the API response
         const {
@@ -71,61 +68,43 @@ let indexBridge = {
             Ratings
         } = result;
 
-        // Update the #movie-info div with the movie details
-        // const movieInfoContainer = document.getElementById("movie-info");
-        movieInfoContainer.innerHTML = `
-            <h1>${Title} (${Year})</h1>
-            <p><strong>IMDB:</strong> ${imdbID}</p>
-            <img src="${Poster}" alt="Movie Poster">
-            <p><strong>Plot:</strong> ${Plot}</p>
-            <hr>
-    
-            <p><strong>Genre:</strong> ${Genre}</p>
-            <p><strong>Age Rating:</strong> ${Rated}</p>
-            <p><strong>Released:</strong> ${Released}</p>
-            <p><strong>Language:</strong> ${Language}</p>
-            <p><strong>Country:</strong> ${Country}</p>
-            <hr>
+        document.getElementById('imdb').innerHTML = `<strong>IMDB:</strong> ${imdbID}`;
+        document.getElementById('title').innerHTML = `${Title} (${Year})`
+        document.getElementById('poster').src = Poster;
+        document.getElementById('plot').innerText = Plot;
+        document.getElementById('genre').innerHTML = `<strong>Genre:</strong> ${Genre}`;
+        document.getElementById('age-rating').innerHTML = `<strong>Age Rating:</strong> ${Rated}`;
+        document.getElementById('release-date').innerHTML = `<strong>Release Date:</strong> ${Released}`;
+        document.getElementById('language').innerHTML = `<strong>Language:</strong> ${Language}`;
+        document.getElementById('country').innerHTML = `<strong>Country:</strong> ${Country}`;
+        document.getElementById('director').innerHTML = `<strong>Directors:</strong> ${Director}`;
+        document.getElementById('writer').innerHTML = `<strong>Writers:</strong> ${Writer}`;
+        document.getElementById('actors').innerHTML = `<strong>Actors:</strong> ${Actors}`;
+        document.getElementById('awards').innerText = Awards;
+        Ratings.forEach(rating => {
+            if (rating.Source === 'Internet Movie Database') {
+                document.getElementById('imdb-rating').innerHTML = `<strong>Internet Movie Database:</strong> ${rating.Value}`;
+            } else if (rating.Source === 'Rotten Tomatoes') {
+                document.getElementById('rotten-tomatoes-rating').innerHTML = `<strong>Rotten Tomatoes:</strong> ${rating.Value}`;
+            } else if (rating.Source === 'Metacritic') {
+                document.getElementById('metacritic-rating').innerHTML = `<strong>Metacritic:</strong> ${rating.Value}`;
+            }
+        });
 
-            <h2>👤 Cast & Crew:</h2>
-            <p><strong>Director:</strong> ${Director}</p>
-            <p><strong>Writer:</strong> ${Writer}</p>
-            <p><strong>Actors:</strong> ${Actors}</p>
-            <hr>
-
-            <h2>🏆 Awards:</h2>
-            <p>${Awards}</p>
-            <hr>
-
-            <h2>⭐ Ratings:</h2>
-            <ul>
-                ${Ratings.map(rating => `<li>${rating.Source}: ${rating.Value}</li>`).join("")}
-            </ul>
-        `;
-
-        // Add Watch button
+        // Watch button
         const link = `https://vidsrc.to/embed/movie/${result.imdbID}`;
         const isAvailable = await checkLinkAvailability(link);
-        const watchButton = document.createElement("button");
-        watchButton.classList.add("watch-button");
-        movieInfoContainer.appendChild(watchButton);
+        const watchButton = document.getElementById("watch-button");
 
         if (isAvailable) {
             watchButton.innerText = "Watch";
-
             watchButton.addEventListener("click", () => {
-
                 const movieWatchPageUrl = "../views/watch.html";
                 const movieId = result.imdbID;
-
-                // Encode the movie IMDb ID to ensure it's properly formatted for URL
                 const encodedMovieId = encodeURIComponent(movieId);
-                // Append the movie IMDb ID as a query parameter to the URL
                 const urlWithQuery = `${movieWatchPageUrl}?imdbID=${encodedMovieId}`;
-                // Redirect the user to the "movie info" page with the movie IMDb ID in the URL
                 window.location.href = urlWithQuery;
             });
-
         } else {
             watchButton.disabled = true;
             watchButton.style.cursor = 'not-allowed';

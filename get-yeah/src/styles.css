@@ -208,16 +208,61 @@ button {
 #movie-info {
   padding: 10px;
   border-radius: 5px;
-  border: 2px solid #FF884B; /* 1px solid border with color FF884B */
+  border: 2px solid #FF884B;
 }
 
-/* #movie-info h1{
-}
-#movie-info p{
+.poster {
+  text-align: center;
 }
 
-#movie-info img{
-} */
+.poster img {
+  border: #000 2px solid;
+}
+
+#movie-info .buttons {
+  display: flex;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  justify-content: center;
+}
+
+.add-fav {
+  border: none;
+  margin-left: 15px;
+  margin-right: 15px;
+  background-color: #000000;
+  height: 45px;
+  width: 45px;
+  /* padding: 100px; */
+  border-radius: 1000px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  padding: 0px;
+}
+
+.add-fav img {
+  margin-top: 6px;
+  max-height: 30px;
+}
+
+#watch-button {
+  padding: 5px 20px;
+  background-color: #FF884B;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 14px;
+}
+
+#title,
+.plot,
+.misc-info,
+.cast-crew,
+.awards,
+.ratings {
+  margin: 15px;
+}
 
 .watch-button {
   background-color: #FF884B;
@@ -227,7 +272,6 @@ button {
   padding: 15px 30px;
   font-size: 18px;
   border: none;
-  border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
