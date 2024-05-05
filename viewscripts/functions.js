@@ -2,7 +2,7 @@
 
 function getPopularFilms() {
     console.log("paplar falms!!");
-    window.indexBridge.getPopularFilms();
+    window.bridge.getPopularFilms();
 }
 
 function SearchFilms() {
@@ -10,7 +10,7 @@ function SearchFilms() {
     const movie = document.getElementById("searchInput").value.trim();
     console.log("from functions " + movie);
     if (movie !== '') {
-        window.indexBridge.getSearchFilms(movie);
+        window.bridge.getSearchFilms(movie);
     } else {
         console.log("empty box!")
         return;
@@ -21,7 +21,7 @@ function FilmInfo() {
     console.log("falm anfo!!");
     const imdb = document.getElementById("imdb").innerText;
     console.log("from functions " + imdb);
-    window.indexBridge.getFilmInfo(imdb);
+    window.bridge.getFilmInfo(imdb);
 }
 
 function toggleDarkMode() {

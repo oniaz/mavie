@@ -1,6 +1,6 @@
 const { contextBridge, ipcMain, ipcRenderer } = require('electron')
 
-let indexBridge = {
+let bridge = {
 
     getPopularFilms: async () => {
         var result = await ipcRenderer.invoke("getPopularFilms");
@@ -43,9 +43,9 @@ let indexBridge = {
     },
 
     getFilmInfo: async (imdb) => {
-        console.log("from indexBridge " + imdb);
+        console.log("from bridge " + imdb);
         var result = await ipcRenderer.invoke("getFilmInfo", imdb);
-        console.log("from indexBridge, got the movie info!");
+        console.log("from bridge, got the movie info!");
         console.log(result.Title);
         console.log("element exists");
 
@@ -123,7 +123,7 @@ let indexBridge = {
     },
 
     getSearchFilms: async (movie) => {
-        console.log("from indexBridge" + movie);
+        console.log("from bridge" + movie);
         var result = await ipcRenderer.invoke("getSearchFilms", movie);
         var searchedFilmsContainer = document.getElementById("searchedFilms");
         searchedFilmsContainer.classList.add("search-done");
@@ -176,7 +176,7 @@ let indexBridge = {
     },
 }
 
-contextBridge.exposeInMainWorld("indexBridge", indexBridge);
+contextBridge.exposeInMainWorld("bridge", bridge);
 
 window.addEventListener('DOMContentLoaded', () => {
     //
