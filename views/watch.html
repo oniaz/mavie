@@ -24,6 +24,8 @@
         </nav>
     </header>
 
+    <h1 id="title">jjjjj</h1>
+
     <!-- Embed the video player -->
     <iframe id="videoFrame" src="" frameborder="0" allowfullscreen="true" width="100%" height="500"></iframe>
 
@@ -31,10 +33,8 @@
     <button id="cinema-mode-button" onclick="toggleCinemaMode()">Toggle Cinema Mode</button>
 
     <script>
-        // Extract the IMDb ID from the URL query parameters
         const urlParams = new URLSearchParams(window.location.search);
         const imdbID = urlParams.get('imdbID');
-
         const videoFrame = document.getElementById("videoFrame");
         videoFrame.src = `https://vidsrc.to/embed/movie/${imdbID}`;
     </script>
@@ -51,6 +51,18 @@
             videoFrame.classList.toggle('cinema-mode');
         }
     </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function (event) {
+            const urlParams = new URLSearchParams(window.location.search);
+            const Title = urlParams.get('title');
+            document.getElementById("title");
+            title.innerText = Title;
+            saveJsonHistory();
+        });
+    </script>
+    <script defer src="../viewscripts/functions.js"></script>
+
 </body>
 
 </html>

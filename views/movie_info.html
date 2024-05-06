@@ -26,12 +26,20 @@
 
     <section>
         <div id="movie-info">
-            <h1 id="title"></h1>
+            <div class="title">
+                <h1 id="title"></h1>
+                <p id="year"></p>
+            </div>
             <div class="poster">
                 <img id="poster" src="" alt="Poster">
             </div>
             <div class="buttons">
-                <button class="add-fav"><img src="../src/add_fav.png" alt="add-fav"></button>
+                <button class="add-wl" onclick="saveJsonFav('watchlist')">
+                    <img src="../src/add_watchlist.png" alt="add-watchlist">
+                </button>
+                <button class="add-fav" onclick="saveJsonFav('favourites')">
+                    <img src="../src/add_fav.png" alt="add-fav">
+                </button>
                 <button id="watch-button">checking link...</button>
             </div>
             <div class="plot">

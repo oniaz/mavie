@@ -30,13 +30,9 @@ let bridge = {
             movieDiv.addEventListener("click", function () {
 
                 const movieInfoPageUrl = "../views/movie_info.html";
-                const movieId = movie.imdb;
+                const urlWithQuery = `${movieInfoPageUrl}?imdbID=${movie.imdb}&title=${movie.title}`;
 
-                // Encode the movie IMDb ID to ensure it's properly formatted for URL
-                const encodedMovieId = encodeURIComponent(movieId);
-                // Append the movie IMDb ID as a query parameter to the URL
-                const urlWithQuery = `${movieInfoPageUrl}?imdbID=${encodedMovieId}`;
-                // Redirect the user to the "movie info" page with the movie IMDb ID in the URL
+                // const encodedMovieId = encodeURIComponent(movieId);
                 window.location.href = urlWithQuery;
             });
         });
@@ -69,7 +65,8 @@ let bridge = {
         } = result;
 
         document.getElementById('imdb').innerHTML = `<strong>IMDB:</strong> ${imdbID}`;
-        document.getElementById('title').innerHTML = `${Title} (${Year})`
+        document.getElementById('title').innerText = Title;
+        document.getElementById('year').innerHTML = `(${Year})`;
         document.getElementById('poster').src = Poster;
         document.getElementById('plot').innerText = Plot;
         document.getElementById('genre').innerHTML = `<strong>Genre:</strong> ${Genre}`;
@@ -100,9 +97,7 @@ let bridge = {
             watchButton.innerText = "Watch";
             watchButton.addEventListener("click", () => {
                 const movieWatchPageUrl = "../views/watch.html";
-                const movieId = result.imdbID;
-                const encodedMovieId = encodeURIComponent(movieId);
-                const urlWithQuery = `${movieWatchPageUrl}?imdbID=${encodedMovieId}`;
+                const urlWithQuery = `${movieWatchPageUrl}?imdbID=${result.imdbID}&title=${result.Title}`;
                 window.location.href = urlWithQuery;
             });
         } else {
@@ -164,17 +159,109 @@ let bridge = {
             searchedFilmsContainer.appendChild(movieDiv);
 
             movieDiv.addEventListener("click", function () {
-                // const embedUrl = `https://vidsrc.to/embed/movie/${movie.imdbID}`;
 
                 const movieInfoPageUrl = "../views/movie_info.html";
-                const movieId = movie.imdbID;
-                const encodedMovieId = encodeURIComponent(movieId);
-                const urlWithQuery = `${movieInfoPageUrl}?imdbID=${encodedMovieId}`;
+                // const encodedMovieId = encodeURIComponent(movie.imdbID);
+                // const movieTitle = encodeURIComponent(movie.Title);
+                const urlWithQuery = `${movieInfoPageUrl}?imdbID=${movie.imdbID}&title=${movie.Title}`;
                 window.location.href = urlWithQuery;
             });
         });
     },
+
+    saveJsonFav: (page, title, imdb, poster) => {
+        console.log("enetered bridge fav!");
+        const data = { title, imdb, poster };
+        console.log(data);
+        ipcRenderer.send("saveJsonFav", page, data);
+    },
+
+    saveJsonHistory: (title, imdb, date) => {
+        console.log("enetered bridge hist!");
+        const data = { title, imdb, date };
+        console.log(data);
+        ipcRenderer.send("saveJsonHistory", data);
+    },
+
+    readFav: async (page) => {
+        console.log( "hello from bridge with " + page);
+        var result = await ipcRenderer.invoke("readFav", page);
+        result.reverse();
+        var favContainer = document.getElementById(page);
+
+        favContainer.innerHTML = "";
+        result.forEach(movie => {
+            var movieDiv = document.createElement("div");
+            movieDiv.classList.add("movie-card");
+
+            movieDiv.id = movie.imdb;
+
+            var posterImg = document.createElement("img");
+            posterImg.src = movie.poster;
+            posterImg.alt = movie.title;
+            posterImg.classList.add("poster-image");
+
+            var titlePara = document.createElement("p");
+            titlePara.textContent = movie.title;
+            titlePara.classList.add("movie-title");
+
+            movieDiv.appendChild(posterImg);
+            movieDiv.appendChild(titlePara);
+            favContainer.appendChild(movieDiv);
+
+            movieDiv.addEventListener("click", function () {
+
+                const movieInfoPageUrl = "../views/movie_info.html";
+                const urlWithQuery = `${movieInfoPageUrl}?imdbID=${movie.imdb}&title=${movie.title}`;
+                window.location.href = urlWithQuery;
+            });
+        });
+    },
+
+    readHistory: async () => {
+        var result = await ipcRenderer.invoke("readHistory");
+        result.reverse();
+        var historyContainer = document.getElementById("history");
+        historyContainer.innerHTML = "";
+
+        var table = document.createElement("table");
+        var headerRow = table.insertRow();
+        var titleHeader = headerRow.insertCell();
+        var dateHeader = headerRow.insertCell();
+        titleHeader.textContent = "Title";
+        dateHeader.textContent = "Date";
+
+        var monthNames = [
+            "January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+        ];
+
+        result.forEach(record => {
+            var row = table.insertRow();
+
+            var date = new Date(record.date);
+            var formattedDate = `${date.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })} on ${date.getDate()} ${monthNames[date.getMonth()]} ${date.getFullYear()}`;
+            // var formattedDate = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
+
+            var titleCell = row.insertCell();
+            var titleLink = document.createElement("a");
+
+            const movieInfoPageUrl = "../views/movie_info.html";
+            const urlWithQuery = `${movieInfoPageUrl}?imdbID=${record.imdb}&title=${record.title}`;
+
+            titleLink.href = urlWithQuery;
+            titleLink.textContent = record.title;
+            titleCell.appendChild(titleLink);
+
+            var dateCell = row.insertCell();
+            dateCell.textContent = formattedDate;
+        });
+
+        historyContainer.appendChild(table);
+    }
+
 }
+
 
 contextBridge.exposeInMainWorld("bridge", bridge);
 

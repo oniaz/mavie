@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../src/styles.css" />
-    <title>Watchlisty</title>
+    <title>Watchlist</title>
 </head>
 
 <body>
@@ -22,7 +22,15 @@
             </div>
         </nav>
     </header>
-    watchlisty
+    <h1> Watchlist 👁️</h1>    <section>
+        <div id="watchlist"></div>
+    </section>
+    <script>
+        document.addEventListener("DOMContentLoaded", function (event) {
+            readFav("watchlist");
+        });
+    </script>
+    <script defer src="../viewscripts/functions.js"></script>
 </body>
 
 </html>

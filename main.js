@@ -4,9 +4,9 @@ const path = require('node:path');
 const { ipcMain } = require("electron");
 const { net } = require("electron");
 const axios = require("axios");
+const fs = require("fs");
 
 let mainWindow;
-
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
   app.quit();
@@ -25,7 +25,7 @@ function createWindow() {
   });
 
   mainWindow.loadFile(path.join(__dirname, './views/index.html'));
-  mainWindow.webContents.openDevTools();
+  // mainWindow.webContents.openDevTools();
 
   // prevent ads lololol
   mainWindow.webContents.setWindowOpenHandler(() => {
@@ -47,7 +47,7 @@ ipcMain.handle("getPopularFilms", async () => {
 });
 
 ipcMain.handle("getSearchFilms", async (event, movie) => {
-  console.log("from the main: " + movie);
+  console.log("from the main getsearchfilms: " + movie);
   const apiUrl = `http://www.omdbapi.com/?apikey=f357aabe&s=${movie}&type=movie`;
   const response = await fetch(apiUrl);
   const body = await response.json();
@@ -61,13 +61,75 @@ ipcMain.handle("getSearchFilms", async (event, movie) => {
 });
 
 ipcMain.handle("getFilmInfo", async (event, imdb) => {
-  console.log("from the main: " + imdb);
+  console.log("from the main getfilminfo: " + imdb);
   const apiUrl = `http://www.omdbapi.com/?apikey=f357aabe&i=${imdb}`;
   const response = await fetch(apiUrl);
   const body = await response.json();
   console.log(body);
   return (body);
 });
+
+ipcMain.on("saveJsonHistory", (event, newData) => {
+  console.log("from the main savejsonhist: " + newData);
+  var existingData;
+  try {
+    existingData = JSON.parse(fs.readFileSync("data/history.json"));
+  } catch (error) {
+    existingData = [];
+  }
+  var updatedData = existingData.concat(newData);
+  var sData = JSON.stringify(updatedData);
+  fs.writeFileSync("data/history.json", sData);
+  console.log("Data Saved to History");
+});
+
+ipcMain.on("saveJsonFav", (event, page, newData) => {
+  console.log(`from the main savejson${page}: ` + newData);
+
+  var existingData;
+  try {
+    existingData = JSON.parse(fs.readFileSync(`data/${page}.json`));
+  } catch (error) {
+    existingData = [];
+  }
+
+  const isDuplicate = existingData.some(movie => movie.imdb === newData.imdb);
+  if (isDuplicate) {
+    console.log("Movie already exists in the fav JSON file. Not saving again.");
+    return;
+  }
+
+  var updatedData = existingData.concat(newData);
+  var sData = JSON.stringify(updatedData);
+  fs.writeFileSync(`data/${page}.json`, sData);
+  console.log(`Data Saved to ${page}`);
+});
+
+
+ipcMain.handle("readHistory", async () => {
+  try {
+    const existingData = JSON.parse(fs.readFileSync("data/history.json"));
+    console.log("Data Read from History:", existingData);
+    return (existingData);
+  } catch (error) {
+    console.error("Error reading history.json:", error);
+    return ([]);
+  }
+});
+
+ipcMain.handle("readFav", async (event, page) => {
+  console.log("hello from readfav");
+  console.log(page);
+  try {
+    const existingData = JSON.parse(fs.readFileSync(`data/${page}.json`));
+    console.log(`Data Read from ${page}`, existingData);
+    return (existingData);
+  } catch (error) {
+    console.error(`Error reading ${page}.json:`, error);
+    return ([]);
+  }
+});
+
 
 // idk what those are
 app.whenReady().then(() => {

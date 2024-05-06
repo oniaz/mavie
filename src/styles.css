@@ -1,3 +1,6 @@
+
+/* ffbe4f */
+
 /* Header */
 
 nav {
@@ -228,10 +231,11 @@ button {
   justify-content: center;
 }
 
-.add-fav {
+.add-fav,
+.add-wl {
   border: none;
-  margin-left: 15px;
-  margin-right: 15px;
+  margin-left: 7px;
+  margin-right: 7px;
   background-color: #000000;
   height: 45px;
   width: 45px;
@@ -247,7 +251,13 @@ button {
   max-height: 30px;
 }
 
+.add-wl img {
+  margin-top: 6px;
+  max-height: 27px;
+}
+
 #watch-button {
+  margin-left: 10px;
   padding: 5px 20px;
   background-color: #FF884B;
   border: none;
@@ -257,7 +267,15 @@ button {
   font-size: 14px;
 }
 
-#title,
+.title {
+  display: flex;
+}
+#year {
+  margin-top: 27px;
+  margin-left: 5px;
+}
+
+.title,
 .plot,
 .misc-info,
 .cast-crew,
@@ -316,3 +334,34 @@ button {
   background-color: #000000;
   color: beige;
 } */
+
+/* History */
+
+#history {
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+#history table {
+  width: 100%;
+}
+#history th, #history td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+#history a {
+  text-decoration: none;
+  color: #9195F6;
+}
+
+#history tr:not(:first-child):hover {
+  background-color: #B7C9F2;
+}
+
+#history a:hover {
+  color: #ffbe4f;
+}
+
+

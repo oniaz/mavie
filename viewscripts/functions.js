@@ -30,3 +30,42 @@ function toggleDarkMode() {
     body.classList.toggle('light-mode');
 }
 
+function saveJsonHistory() {
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const imdb = urlParams.get('imdbID');
+    const title = urlParams.get('title');
+    const date = new Date();
+
+    console.log("from fucntion: histire!");
+    console.log(title);
+    console.log(imdb);
+    console.log(date);
+
+    window.bridge.saveJsonHistory(title, imdb, date);
+}
+
+function saveJsonFav(page) {
+    const title = document.getElementById('title').innerText;
+    var imdb = document.getElementById('imdb').innerHTML;
+    imdb = imdb.match(/<strong>IMDB:<\/strong>\s*(\S+)/)[1];
+    var poster = document.getElementById('poster').src;
+
+    console.log(`from fucntion: ${page} !`);
+    console.log(title);
+    console.log(imdb);
+    console.log(poster);
+
+    window.bridge.saveJsonFav(page, title, imdb, poster);
+}
+
+function readFav(page) {
+    console.log("from functions:" + page);
+    window.bridge.readFav(page);
+}
+
+
+function readHistory() {
+    console.log("from functions: redd hstre");
+    window.bridge.readHistory();
+}
