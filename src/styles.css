@@ -78,6 +78,21 @@ button {
 
 /* Home Page */
 
+#intro {
+  display: flex;
+  justify-content:center;
+  margin-bottom: 0px;
+}
+
+#intro div {
+margin: 30px;
+margin-top: 40px;
+margin-bottom: 0px;
+}
+
+#intro div img {
+  height: 300px;
+}
 #SearchPageButton {
   display: block;
   margin: 30px auto;
