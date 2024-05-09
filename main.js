@@ -15,7 +15,7 @@ if (require('electron-squirrel-startup')) {
 function createWindow() {
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    width: 1000,
+    width: 1010,
     height: 1000,
     webPreferences: {
       nodeIntegration: true,
