@@ -173,6 +173,9 @@ margin-bottom: 0px;
 }
 
 /* Movie Listing */
+
+#favourites,
+#watchlist,
 #hotfilms,
 #searchedFilms {
   padding: 10px;
@@ -187,7 +190,8 @@ margin-bottom: 0px;
   background-color: #000000;
   display: inline-block;
   /* Display cards inline */
-  width: calc(25% - 20px);
+  /* width: calc(25% - 20px); */
+  width: 202.5px;
   /* Set width for each card (25% of container width minus margin) */
   margin: 10px;
   /* Margin between cards */

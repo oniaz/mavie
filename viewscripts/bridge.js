@@ -188,6 +188,8 @@ let bridge = {
         var result = await ipcRenderer.invoke("readFav", page);
         result.reverse();
         var favContainer = document.getElementById(page);
+        favContainer.classList.add("search-done");
+
 
         favContainer.innerHTML = "";
         result.forEach(movie => {
