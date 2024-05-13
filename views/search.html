@@ -11,17 +11,17 @@
 <body>
   <header>
     <nav>
-        <div class="logo">
-            <a href="index.html"><img src="../src/logo.png" alt="Logo"></a>
-        </div>
-        <div class="pages">
-          <a class="search" href="./search.html"><img src="../src/search.png"></a>
-          <a class="watchlist" href="./watchlist.html"><img src="../src/watchlist.png" alt=""></a>
-          <a class="favourite" href="./favourites.html"><img src="../src/fav.png"></a>
-          <a class="history" href="./history.html"><img src="../src/history.png"></a>
-        </div>
+      <div class="logo">
+        <a href="index.html"><img src="../src/logo.png" alt="Logo"></a>
+      </div>
+      <div class="pages">
+        <a class="search" href="./search.html"><img src="../src/search.png"></a>
+        <a class="watchlist" href="./watchlist.html"><img src="../src/watchlist.png" alt=""></a>
+        <a class="favourite" href="./favourites.html"><img src="../src/fav.png"></a>
+        <a class="history" href="./history.html"><img src="../src/history.png"></a>
+      </div>
     </nav>
-</header>
+  </header>
 
   <h1> Movie Search 🔍</h1>
   <div class="search-tip">
@@ -40,16 +40,24 @@
   <section>
 
     <div class="search-container">
-      <input type="text" id="searchInput">
+      <input type="text" id="searchInput" onkeydown="handleKeyDown(event)">
       <button id="infobutton" onclick="SearchFilms();">Search</button>
     </div>
-
+    <script>
+      function handleKeyDown(event) {
+        // Check if the pressed key is Enter (key code 13)
+        if (event.keyCode === 13) {
+          // Prevent the default form submission behavior
+          event.preventDefault();
+          // Call the SearchFilms() function
+          SearchFilms();
+        }
+      }
+    </script>
     <div id="searchedFilms">
     </div>
 
   </section>
-
-  <!-- You can also require other files to run in this process -->
   <script defer src="../viewscripts/functions.js"></script>
 
 
