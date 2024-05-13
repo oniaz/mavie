@@ -1,9 +1,6 @@
 const { app, BrowserWindow } = require('electron');
 const path = require('node:path');
-
 const { ipcMain } = require("electron");
-const { net } = require("electron");
-const axios = require("axios");
 const fs = require("fs");
 
 let mainWindow;
@@ -38,7 +35,6 @@ function createWindow() {
   });
 };
 
-
 ipcMain.handle("getPopularFilms", async () => {
   const response = await fetch("https://api.npoint.io/2fba5056b01154250947");
   const body = await response.json();
@@ -69,17 +65,24 @@ ipcMain.handle("getFilmInfo", async (event, imdb) => {
   return (body);
 });
 
+// Get the directory where you want to store the JSON files
+const userDataPath = path.join(app.getPath('userData'), 'data');
+// Ensure the directory exists
+if (!fs.existsSync(userDataPath)) {
+    fs.mkdirSync(userDataPath, { recursive: true });
+}
 ipcMain.on("saveJsonHistory", (event, newData) => {
   console.log("from the main savejsonhist: " + newData);
   var existingData;
   try {
-    existingData = JSON.parse(fs.readFileSync("data/history.json"));
+    // existingData = JSON.parse(fs.readFileSync("data/history.json"));
+    existingData = JSON.parse(fs.readFileSync(path.join(userDataPath, 'history.json')));
   } catch (error) {
     existingData = [];
   }
   var updatedData = existingData.concat(newData);
   var sData = JSON.stringify(updatedData);
-  fs.writeFileSync("data/history.json", sData);
+  fs.writeFileSync(path.join(userDataPath, 'history.json'), sData);
   console.log("Data Saved to History");
 });
 
@@ -88,7 +91,9 @@ ipcMain.on("saveJsonFav", (event, page, newData) => {
 
   var existingData;
   try {
-    existingData = JSON.parse(fs.readFileSync(`data/${page}.json`));
+    // existingData = JSON.parse(fs.readFileSync(`data/${page}.json`));
+    existingData = JSON.parse(fs.readFileSync(path.join(userDataPath, `${page}.json`)));
+
   } catch (error) {
     existingData = [];
   }
@@ -101,14 +106,13 @@ ipcMain.on("saveJsonFav", (event, page, newData) => {
 
   var updatedData = existingData.concat(newData);
   var sData = JSON.stringify(updatedData);
-  fs.writeFileSync(`data/${page}.json`, sData);
+  fs.writeFileSync(path.join(userDataPath, `${page}.json`), sData);
   console.log(`Data Saved to ${page}`);
 });
 
-
 ipcMain.handle("readHistory", async () => {
   try {
-    const existingData = JSON.parse(fs.readFileSync("data/history.json"));
+    const existingData = JSON.parse(fs.readFileSync(path.join(userDataPath, 'history.json')));
     console.log("Data Read from History:", existingData);
     return (existingData);
   } catch (error) {
@@ -121,7 +125,7 @@ ipcMain.handle("readFav", async (event, page) => {
   console.log("hello from readfav");
   console.log(page);
   try {
-    const existingData = JSON.parse(fs.readFileSync(`data/${page}.json`));
+    const existingData = JSON.parse(fs.readFileSync(path.join(userDataPath, `${page}.json`)));
     console.log(`Data Read from ${page}`, existingData);
     return (existingData);
   } catch (error) {
@@ -129,7 +133,6 @@ ipcMain.handle("readFav", async (event, page) => {
     return ([]);
   }
 });
-
 
 // idk what those are
 app.whenReady().then(() => {
