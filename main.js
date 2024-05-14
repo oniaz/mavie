@@ -1,7 +1,7 @@
 const { app, BrowserWindow } = require('electron');
 const path = require('node:path');
-const { ipcMain } = require("electron");
-const fs = require("fs");
+const { ipcMain } = require('electron');
+const fs = require('fs');
 
 let mainWindow;
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
@@ -9,16 +9,16 @@ if (require('electron-squirrel-startup')) {
   app.quit();
 }
 
-function createWindow() {
+function createWindow () {
   // Create the browser window.
   mainWindow = new BrowserWindow({
     width: 1010,
     height: 1000,
     webPreferences: {
       nodeIntegration: true,
-      preload: path.join(__dirname, "./preload.js")
+      preload: path.join(__dirname, './preload.js')
       // preload: path.join(__dirname, 'preload.js'), // same thing really
-    },
+    }
   });
 
   mainWindow.loadFile(path.join(__dirname, './views/index.html'));
@@ -26,24 +26,24 @@ function createWindow() {
 
   // prevent ads lololol
   mainWindow.webContents.setWindowOpenHandler(() => {
-    return { action: "deny" };
+    return { action: 'deny' };
   });
 
-  //garbage collection when closing the window - remove from memory
+  // garbage collection when closing the window - remove from memory
   mainWindow.on('closed', () => {
     mainWindow = null;
   });
-};
+}
 
-ipcMain.handle("getPopularFilms", async () => {
-  const response = await fetch("https://api.npoint.io/2fba5056b01154250947");
+ipcMain.handle('getPopularFilms', async () => {
+  const response = await fetch('https://api.npoint.io/2fba5056b01154250947');
   const body = await response.json();
   console.log(body[0]);
   return (body);
 });
 
-ipcMain.handle("getSearchFilms", async (event, movie) => {
-  console.log("from the main getsearchfilms: " + movie);
+ipcMain.handle('getSearchFilms', async (event, movie) => {
+  console.log('from the main getsearchfilms: ' + movie);
   const apiUrl = `http://www.omdbapi.com/?apikey=f357aabe&s=${movie}&type=movie`;
   const response = await fetch(apiUrl);
   const body = await response.json();
@@ -56,8 +56,8 @@ ipcMain.handle("getSearchFilms", async (event, movie) => {
   }
 });
 
-ipcMain.handle("getFilmInfo", async (event, imdb) => {
-  console.log("from the main getfilminfo: " + imdb);
+ipcMain.handle('getFilmInfo', async (event, imdb) => {
+  console.log('from the main getfilminfo: ' + imdb);
   const apiUrl = `http://www.omdbapi.com/?apikey=f357aabe&i=${imdb}`;
   const response = await fetch(apiUrl);
   const body = await response.json();
@@ -69,60 +69,59 @@ ipcMain.handle("getFilmInfo", async (event, imdb) => {
 const userDataPath = path.join(app.getPath('userData'), 'data');
 // Ensure the directory exists
 if (!fs.existsSync(userDataPath)) {
-    fs.mkdirSync(userDataPath, { recursive: true });
+  fs.mkdirSync(userDataPath, { recursive: true });
 }
-ipcMain.on("saveJsonHistory", (event, newData) => {
-  console.log("from the main savejsonhist: " + newData);
-  var existingData;
+ipcMain.on('saveJsonHistory', (event, newData) => {
+  console.log('from the main savejsonhist: ' + newData);
+  let existingData;
   try {
     // existingData = JSON.parse(fs.readFileSync("data/history.json"));
     existingData = JSON.parse(fs.readFileSync(path.join(userDataPath, 'history.json')));
   } catch (error) {
     existingData = [];
   }
-  var updatedData = existingData.concat(newData);
-  var sData = JSON.stringify(updatedData);
+  const updatedData = existingData.concat(newData);
+  const sData = JSON.stringify(updatedData);
   fs.writeFileSync(path.join(userDataPath, 'history.json'), sData);
-  console.log("Data Saved to History");
+  console.log('Data Saved to History');
 });
 
-ipcMain.on("saveJsonFav", (event, page, newData) => {
+ipcMain.on('saveJsonFav', (event, page, newData) => {
   console.log(`from the main savejson${page}: ` + newData);
 
-  var existingData;
+  let existingData;
   try {
     // existingData = JSON.parse(fs.readFileSync(`data/${page}.json`));
     existingData = JSON.parse(fs.readFileSync(path.join(userDataPath, `${page}.json`)));
-
   } catch (error) {
     existingData = [];
   }
 
   const isDuplicate = existingData.some(movie => movie.imdb === newData.imdb);
   if (isDuplicate) {
-    console.log("Movie already exists in the fav JSON file. Not saving again.");
+    console.log('Movie already exists in the fav JSON file. Not saving again.');
     return;
   }
 
-  var updatedData = existingData.concat(newData);
-  var sData = JSON.stringify(updatedData);
+  const updatedData = existingData.concat(newData);
+  const sData = JSON.stringify(updatedData);
   fs.writeFileSync(path.join(userDataPath, `${page}.json`), sData);
   console.log(`Data Saved to ${page}`);
 });
 
-ipcMain.handle("readHistory", async () => {
+ipcMain.handle('readHistory', async () => {
   try {
     const existingData = JSON.parse(fs.readFileSync(path.join(userDataPath, 'history.json')));
-    console.log("Data Read from History:", existingData);
+    console.log('Data Read from History:', existingData);
     return (existingData);
   } catch (error) {
-    console.error("Error reading history.json:", error);
+    console.error('Error reading history.json:', error);
     return ([]);
   }
 });
 
-ipcMain.handle("readFav", async (event, page) => {
-  console.log("hello from readfav");
+ipcMain.handle('readFav', async (event, page) => {
+  console.log('hello from readfav');
   console.log(page);
   try {
     const existingData = JSON.parse(fs.readFileSync(path.join(userDataPath, `${page}.json`)));
@@ -154,5 +153,3 @@ app.on('window-all-closed', () => {
     app.quit();
   }
 });
-
-
