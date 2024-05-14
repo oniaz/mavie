@@ -1,5 +1,5 @@
 # Mavie :3
-![Mavie Logo](src/logo.png)
+![Mavie Logo](images/logo.png)
 
 Mavie is a movie information and streaming application built with Electron. It provides users with access to a vast collection of movie data sourced from the Open Movie Database (OMDb). Additionally, Mavie enables users to stream movies directly within the application using Vidsrc.
 ## Prerequisites
