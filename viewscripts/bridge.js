@@ -31,8 +31,6 @@ let bridge = {
 
                 const movieInfoPageUrl = "../views/movie_info.html";
                 const urlWithQuery = `${movieInfoPageUrl}?imdbID=${movie.imdb}&title=${movie.title}`;
-
-                // const encodedMovieId = encodeURIComponent(movieId);
                 window.location.href = urlWithQuery;
             });
         });
@@ -161,8 +159,6 @@ let bridge = {
             movieDiv.addEventListener("click", function () {
 
                 const movieInfoPageUrl = "../views/movie_info.html";
-                // const encodedMovieId = encodeURIComponent(movie.imdbID);
-                // const movieTitle = encodeURIComponent(movie.Title);
                 const urlWithQuery = `${movieInfoPageUrl}?imdbID=${movie.imdbID}&title=${movie.Title}`;
                 window.location.href = urlWithQuery;
             });
@@ -184,7 +180,7 @@ let bridge = {
     },
 
     readFav: async (page) => {
-        console.log( "hello from bridge with " + page);
+        console.log("hello from bridge with " + page);
         var result = await ipcRenderer.invoke("readFav", page);
         result.reverse();
         var favContainer = document.getElementById(page);
@@ -243,7 +239,6 @@ let bridge = {
 
             var date = new Date(record.date);
             var formattedDate = `${date.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })} on ${date.getDate()} ${monthNames[date.getMonth()]} ${date.getFullYear()}`;
-            // var formattedDate = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
 
             var titleCell = row.insertCell();
             var titleLink = document.createElement("a");
@@ -261,7 +256,6 @@ let bridge = {
 
         historyContainer.appendChild(table);
     }
-
 }
 
 

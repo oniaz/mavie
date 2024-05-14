@@ -134,7 +134,6 @@ ipcMain.handle("readFav", async (event, page) => {
   }
 });
 
-// idk what those are
 app.whenReady().then(() => {
   createWindow();
 
