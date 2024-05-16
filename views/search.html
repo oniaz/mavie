@@ -33,16 +33,14 @@
         class="highlight">'hobb'</span>
       or <span class="highlight">'journ'</span>.
     </div>
-
-
   </div>
 
   <section>
-
     <div class="search-container">
       <input type="text" id="searchInput" onkeydown="handleKeyDown(event)">
-      <button id="infobutton" onclick="SearchFilms();">Search</button>
+      <button id="searchbutton" onclick="SearchFilms();">Search</button>
     </div>
+
     <script>
       function handleKeyDown(event) {
         // Check if the pressed key is Enter (key code 13)
@@ -57,9 +55,21 @@
     <div id="searchedFilms">
     </div>
 
-  </section>
-  <script defer src="../viewscripts/functions.js"></script>
+    <script defer src="../viewscripts/functions.js"></script>
 
+    <script>
+      document.addEventListener("DOMContentLoaded", function (event) {
+
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has('searchQuery')) {
+          const searchQuery = urlParams.get('searchQuery');
+          const searchInput = document.getElementById('searchInput');
+          searchInput.value = searchQuery;
+          SearchFilms();
+        }
+      });
+    </script>
+  </section>
 
 </body>
 

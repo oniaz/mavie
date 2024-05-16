@@ -115,9 +115,9 @@ const bridge = {
     sessionStorage.setItem("backToInfo", window.location.href);
   },
 
-  getSearchFilms: async (movie) => {
-    console.log('from bridge' + movie);
-    const result = await ipcRenderer.invoke('getSearchFilms', movie);
+  getSearchFilms: async (searchQuery) => {
+    console.log('from bridge' + searchQuery);
+    const result = await ipcRenderer.invoke('getSearchFilms', searchQuery);
     const searchedFilmsContainer = document.getElementById('searchedFilms');
     searchedFilmsContainer.classList.add('search-done');
 
@@ -158,7 +158,7 @@ const bridge = {
 
       movieDiv.addEventListener('click', function () {
         const movieInfoPageUrl = '../views/movie_info.html';
-        const urlWithQuery = `${movieInfoPageUrl}?imdbID=${movie.imdbID}&title=${movie.Title}`;
+        const urlWithQuery = `${movieInfoPageUrl}?imdbID=${movie.imdbID}&title=${movie.Title}&searchQuery=${searchQuery}`;
         window.location.href = urlWithQuery;
       });
     });

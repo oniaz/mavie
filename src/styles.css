@@ -62,7 +62,18 @@ button {
 }
 
 .back-button {
+  margin: 10px;
+  padding: 10px 20px;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
   background-color:  #009C4A;
+  font-size: medium;
+}
+
+.back-button span {
+  font-size: large;
 }
 /* Home Page */
 

@@ -22,6 +22,8 @@
         </nav>
     </header>
 
+    <button class="back-button" onclick="goBackToResults()"> <span>⬅</span> Back to Search Results Info</button>
+
     <h1> Movie Info 🎥</h1>
 
     <section>
@@ -82,6 +84,19 @@
 
         document.getElementById("imdb")
         imdb.innerText = imdbID;
+
+        if (!(urlParams.has('searchQuery'))) {
+            document.querySelector('.back-button').remove();
+        }
+
+        function goBackToResults() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const searchQuery = urlParams.get('searchQuery');
+            console.log(`search query: ${searchQuery}`);
+            const movieSearchPageUrl = '../views/search.html';
+            const urlWithQuery = `${movieSearchPageUrl}?searchQuery=${searchQuery}`;
+            window.location.href = urlWithQuery;
+        }
 
         document.addEventListener("DOMContentLoaded", function (event) {
             FilmInfo();
