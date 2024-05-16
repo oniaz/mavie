@@ -66,3 +66,8 @@ function readHistory () {
   console.log('from functions: redd hstre');
   window.bridge.readHistory();
 }
+
+function deleteHistory () {
+  window.bridge.deleteHistory();
+  readHistory ();
+}

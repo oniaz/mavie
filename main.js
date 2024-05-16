@@ -9,7 +9,7 @@ if (require('electron-squirrel-startup')) {
   app.quit();
 }
 
-function createWindow () {
+function createWindow() {
   // Create the browser window.
   mainWindow = new BrowserWindow({
     width: 1010,
@@ -75,7 +75,6 @@ ipcMain.on('saveJsonHistory', (event, newData) => {
   console.log('from the main savejsonhist: ' + newData);
   let existingData;
   try {
-    // existingData = JSON.parse(fs.readFileSync("data/history.json"));
     existingData = JSON.parse(fs.readFileSync(path.join(userDataPath, 'history.json')));
   } catch (error) {
     existingData = [];
@@ -86,32 +85,15 @@ ipcMain.on('saveJsonHistory', (event, newData) => {
   console.log('Data Saved to History');
 });
 
-ipcMain.on('saveJsonFav', (event, page, newData) => {
-  console.log(`from the main savejson${page}: ` + newData);
-
-  let existingData;
-  try {
-    // existingData = JSON.parse(fs.readFileSync(`data/${page}.json`));
-    existingData = JSON.parse(fs.readFileSync(path.join(userDataPath, `${page}.json`)));
-  } catch (error) {
-    existingData = [];
-  }
-
-  const isDuplicate = existingData.some(movie => movie.imdb === newData.imdb);
-  if (isDuplicate) {
-    console.log('Movie already exists in the fav JSON file. Not saving again.');
-    return;
-  }
-
-  const updatedData = existingData.concat(newData);
-  const sData = JSON.stringify(updatedData);
-  fs.writeFileSync(path.join(userDataPath, `${page}.json`), sData);
-  console.log(`Data Saved to ${page}`);
-});
-
 ipcMain.handle('readHistory', async () => {
   try {
-    const existingData = JSON.parse(fs.readFileSync(path.join(userDataPath, 'history.json')));
+    fileData = fs.readFileSync(path.join(userDataPath, 'history.json'));
+    if (fileData.length === 0) {
+      console.log('History file is empty');
+      return [];
+    }
+    console.log('File data:', fileData);
+    const existingData = JSON.parse(fileData);
     console.log('Data Read from History:', existingData);
     return (existingData);
   } catch (error) {
@@ -120,11 +102,46 @@ ipcMain.handle('readHistory', async () => {
   }
 });
 
+ipcMain.on('deleteHistory', () => {
+  try {
+    fs.truncateSync(path.join(userDataPath, 'history.json'));
+    console.log('History file truncated successfully');
+  } catch (error) {
+    console.error('Error truncating history.json:', error);
+  }
+});
+
+ipcMain.on('saveJsonFav', (event, page, newData) => {
+  console.log(`from the main savejson${page}: ` + newData);
+
+  let existingData;
+  try {
+    existingData = JSON.parse(fs.readFileSync(path.join(userDataPath, `${page}.json`)));
+  } catch (error) {
+    existingData = [];
+  }
+
+  const isDuplicate = existingData.some(movie => movie.imdb === newData.imdb);
+  if (isDuplicate) {
+    console.log('Movie already exists in the fav JSON file. Not saving again.');
+  } else {
+    const updatedData = existingData.concat(newData);
+    const sData = JSON.stringify(updatedData);
+    fs.writeFileSync(path.join(userDataPath, `${page}.json`), sData);
+    console.log(`Data Saved to ${page}`);
+  }
+});
+
 ipcMain.handle('readFav', async (event, page) => {
   console.log('hello from readfav');
   console.log(page);
   try {
-    const existingData = JSON.parse(fs.readFileSync(path.join(userDataPath, `${page}.json`)));
+    fileData = fs.readFileSync(path.join(userDataPath, `${page}.json`));
+    if (fileData.length === 0) {
+      console.log(`${page} file is empty`);
+      return [];
+    }
+    const existingData = JSON.parse(fileData);
     console.log(`Data Read from ${page}`, existingData);
     return (existingData);
   } catch (error) {

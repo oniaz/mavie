@@ -104,7 +104,7 @@ const bridge = {
     }
 
     // Function to check link availability
-    async function checkLinkAvailability (link) {
+    async function checkLinkAvailability(link) {
       try {
         const response = await fetch(link);
         return response.ok;
@@ -251,6 +251,10 @@ const bridge = {
     });
 
     historyContainer.appendChild(table);
+  },
+
+  deleteHistory: () => {
+    ipcRenderer.send('deleteHistory');
   }
 };
 
