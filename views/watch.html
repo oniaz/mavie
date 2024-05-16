@@ -24,7 +24,14 @@
         </nav>
     </header>
 
-    <h1 id="title">jjjjj</h1>
+    <button class="back-button" onclick="goBack()">Back to Movie Info</button>
+    <script>
+        function goBack() {
+            window.location.href = sessionStorage.getItem("backToInfo");
+        }
+    </script>
+
+    <h1 id="title">movie title</h1>
 
     <!-- Embed the video player -->
     <iframe id="videoFrame" src="" frameborder="0" allowfullscreen="true" width="100%" height="500"></iframe>

@@ -112,6 +112,7 @@ const bridge = {
         return false;
       }
     }
+    sessionStorage.setItem("backToInfo", window.location.href);
   },
 
   getSearchFilms: async (movie) => {
