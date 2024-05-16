@@ -191,6 +191,9 @@ const bridge = {
 
       movieDiv.id = movie.imdb;
 
+      const posterDiv = document.createElement('div');
+      posterDiv.classList.add('poster-container');
+
       const posterImg = document.createElement('img');
       posterImg.src = movie.poster;
       posterImg.alt = movie.title;
@@ -200,7 +203,24 @@ const bridge = {
       titlePara.textContent = movie.title;
       titlePara.classList.add('movie-title');
 
-      movieDiv.appendChild(posterImg);
+      // remove film from list
+      const deleteButton = document.createElement('button');
+      deleteButton.classList.add('delete-film-button');
+
+      const deleteIcon = document.createElement('img');
+      deleteIcon.src = '../images/remove.png';
+      deleteIcon.alt = 'remove';
+
+      deleteButton.appendChild(deleteIcon);
+      deleteButton.addEventListener('click', async function (event) {
+        event.stopPropagation(); // Prevent click event on movieDiv from firing
+        await ipcRenderer.send('removeFilm', page, movie.imdb);
+        window.location.href = `../views/${page}.html`;
+      });
+
+      posterDiv.appendChild(deleteButton);
+      posterDiv.appendChild(posterImg);
+      movieDiv.appendChild(posterDiv);
       movieDiv.appendChild(titlePara);
       favContainer.appendChild(movieDiv);
 

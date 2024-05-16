@@ -263,6 +263,7 @@ button {
   justify-content: center;
 }
 
+.delete-film-button,
 .add-fav,
 .add-wl {
   border: none;
@@ -400,7 +401,7 @@ button {
 }
 
 #delete-history-div {
-justify-content: right;
+  justify-content: right;
 }
 
 .delete-history {
@@ -421,4 +422,23 @@ justify-content: right;
 .delete-history img {
   margin-top: 6px;
   max-height: 30px;
+}
+
+.poster-container {
+  position: relative;
+}
+
+/* Favourites/Watchlist */
+
+.delete-film-button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  z-index: 1;
+  /* Ensure delete button is above the poster image */
+}
+
+.delete-film-button img {
+  margin-top: 6px;
+  max-height: 27px;
 }

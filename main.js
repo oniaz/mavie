@@ -85,7 +85,7 @@ ipcMain.on('saveJsonHistory', (event, newData) => {
   console.log('Data Saved to History');
 });
 
-ipcMain.handle('readHistory', async () => {
+ipcMain.handle('readHistory', () => {
   try {
     fileData = fs.readFileSync(path.join(userDataPath, 'history.json'));
     if (fileData.length === 0) {
@@ -132,7 +132,7 @@ ipcMain.on('saveJsonFav', (event, page, newData) => {
   }
 });
 
-ipcMain.handle('readFav', async (event, page) => {
+ipcMain.handle('readFav', (event, page) => {
   console.log('hello from readfav');
   console.log(page);
   try {
@@ -147,6 +147,25 @@ ipcMain.handle('readFav', async (event, page) => {
   } catch (error) {
     console.error(`Error reading ${page}.json:`, error);
     return ([]);
+  }
+});
+
+ipcMain.on('removeFilm', (event, page, imdb) => {
+  let data;
+  try {
+    data = JSON.parse(fs.readFileSync(path.join(userDataPath, `${page}.json`)));
+    for (let i = 0; i < data.length; i++) {
+      if (data[i].imdb === imdb) {
+        data.splice(i, 1);
+        break;
+      }
+    }
+
+    const sData = JSON.stringify(data);
+    fs.writeFileSync(path.join(userDataPath, `${page}.json`), sData);
+    console.log(`Removed movie with imdb ${imdb} and updated ${page}`);
+  } catch (error) {
+    console.log(`Error reading ${page}`, error);
   }
 });
 

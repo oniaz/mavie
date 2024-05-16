@@ -67,7 +67,7 @@ function readHistory () {
   window.bridge.readHistory();
 }
 
-function deleteHistory () {
-  window.bridge.deleteHistory();
+async function deleteHistory () {
+  await window.bridge.deleteHistory();
   readHistory ();
 }
