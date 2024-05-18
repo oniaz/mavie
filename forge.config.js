@@ -17,6 +17,9 @@ module.exports = {
     {
       name: '@electron-forge/maker-zip',
       platforms: ['darwin'],
+      config: {
+        arch: 'universal'
+      }
     },
     {
       name: '@electron-forge/maker-deb',
