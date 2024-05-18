@@ -10,7 +10,9 @@ module.exports = {
   makers: [
     {
       name: '@electron-forge/maker-squirrel',
-      config: {},
+      config: {
+        name: "mavie"
+      },
     },
     {
       name: '@electron-forge/maker-zip',
@@ -24,6 +26,17 @@ module.exports = {
       name: '@electron-forge/maker-rpm',
       config: {},
     },
+  ],
+  publishers: [
+    {
+      name: "@electron-forge/publisher-github",
+      config: {
+        repository: {
+          owner: "oniaz",
+          name: "mavie"
+        }
+      }
+    }
   ],
   plugins: [
     {
