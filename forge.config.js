@@ -33,7 +33,8 @@ module.exports = {
       config: {
         repository: {
           owner: "oniaz",
-          name: "mavie"
+          name: "mavie",
+          draft: true
         }
       }
     }
