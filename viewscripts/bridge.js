@@ -48,6 +48,7 @@ const bridge = {
       Title,
       Year,
       Rated,
+      Runtime,
       Released,
       Genre,
       Director,
@@ -68,6 +69,7 @@ const bridge = {
     document.getElementById('plot').innerText = Plot;
     document.getElementById('genre').innerHTML = `<strong>Genre:</strong> ${Genre}`;
     document.getElementById('age-rating').innerHTML = `<strong>Age Rating:</strong> ${Rated}`;
+    document.getElementById('runtime').innerHTML = `<strong>Runtime:</strong> ${Runtime}`;
     document.getElementById('release-date').innerHTML = `<strong>Release Date:</strong> ${Released}`;
     document.getElementById('language').innerHTML = `<strong>Language:</strong> ${Language}`;
     document.getElementById('country').innerHTML = `<strong>Country:</strong> ${Country}`;
