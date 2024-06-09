@@ -42,8 +42,15 @@
     <script>
         const urlParams = new URLSearchParams(window.location.search);
         const imdbID = urlParams.get('imdbID');
+        const service = urlParams.get('service');
         const videoFrame = document.getElementById("videoFrame");
-        videoFrame.src = `https://vidsrc.to/embed/movie/${imdbID}`;
+        if (service === '1') {
+            videoFrame.src = `https://vidsrc.to/embed/movie/${imdbID}`;
+        } else if (service === '2') {
+            videoFrame.src = `https://vidsrc.xyz/embed/movie?imdb=${imdbID}`;
+        } else {
+            console.log(service);
+        }
     </script>
 
     <script>
@@ -54,8 +61,9 @@
             const videoFrame = document.getElementById('videoFrame');
             body.classList.toggle('cinema-mode');
             header.classList.toggle('cinema-mode');
-            // button.classList.toggle('cinema-mode');
+            button.classList.toggle('cinema-mode');
             videoFrame.classList.toggle('cinema-mode');
+
         }
     </script>
 

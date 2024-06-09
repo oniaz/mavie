@@ -270,7 +270,14 @@ button {
   border: #000 2px solid;
 }
 
-#movie-info .buttons {
+#movie-info .buttons .add-buttons {
+  display: flex;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  justify-content: center;
+}
+
+#movie-info .buttons .watch-buttons{
   display: flex;
   margin-top: 15px;
   margin-bottom: 15px;
@@ -303,15 +310,23 @@ button {
   max-height: 27px;
 }
 
-#watch-button {
-  margin-left: 10px;
-  padding: 5px 20px;
-  background-color: #FF884B;
+.watch-buttons button {
+  padding: 15px 30px;
+  margin: 5px;
+  color: #fff;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  font-size: 14px;
+  font-size: 18px;
+}
+
+#watch-button-1{
+  background-color: #f0bc4d;
+}
+
+#watch-button-2{
+  background-color: #3651a9;
 }
 
 .title {
@@ -332,23 +347,7 @@ button {
   margin: 15px;
 }
 
-.watch-button {
-  background-color: #FF884B;
-  color: #fff;
-  cursor: pointer;
-  border-radius: 5px;
-  padding: 15px 30px;
-  font-size: 18px;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
 /* Cinema */
-
-.cinema-mode {
-  background-color: #000;
-}
 
 #cinema-mode-button {
   background-color: #000000;
@@ -362,9 +361,19 @@ button {
   border-radius: 5px;
 }
 
-.cinema-mode header {
+.cinema-mode {
+  background-color: #000;
+}
+
+.cinema-mode header,
+.cinema-mode button {
   display: none;
-  /* Hide header in cinema mode */
+  /* Hide header and buttons in cinema mode */
+}
+
+.cinema-mode #cinema-mode-button {
+  display: inline-block;
+  /* Show cinema mode button in cinema mode */
 }
 
 /* Light/Dark Mode */

@@ -36,13 +36,18 @@
                 <img id="poster" src="" alt="Poster">
             </div>
             <div class="buttons">
-                <button class="add-wl" onclick="saveJsonFav('watchlist')">
-                    <img src="../images/add_watchlist.png" alt="add-watchlist">
-                </button>
-                <button class="add-fav" onclick="saveJsonFav('favourites')">
-                    <img src="../images/add_fav.png" alt="add-fav">
-                </button>
-                <button id="watch-button">checking link...</button>
+                <div class="add-buttons">
+                    <button class="add-wl" onclick="saveJsonFav('watchlist')">
+                        <img src="../images/add_watchlist.png" alt="add-watchlist">
+                    </button>
+                    <button class="add-fav" onclick="saveJsonFav('favourites')">
+                        <img src="../images/add_fav.png" alt="add-fav">
+                    </button>
+                </div>
+                <div class="watch-buttons">
+                    <button id="watch-button-1">checking link...</button>
+                    <button id="watch-button-2">checking link...</button>
+                </div>
             </div>
             <div class="plot">
                 <p id="plot"></p>

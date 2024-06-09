@@ -88,21 +88,37 @@ const bridge = {
     });
 
     // Watch button
-    const link = `https://vidsrc.to/embed/movie/${result.imdbID}`;
-    const isAvailable = await checkLinkAvailability(link);
-    const watchButton = document.getElementById('watch-button');
+    const link1 = `https://vidsrc.to/embed/movie/${result.imdbID}`;
+    const link2 = `https://vidsrc.xyz/embed/movie?imdb=${result.imdbID}`;
+    const isAvailable1 = await checkLinkAvailability(link1);
+    const isAvailable2 = await checkLinkAvailability(link2);
+    const watchButton1 = document.getElementById('watch-button-1');
+    const watchButton2 = document.getElementById('watch-button-2');
 
-    if (isAvailable) {
-      watchButton.innerText = 'Watch';
-      watchButton.addEventListener('click', () => {
+    if (isAvailable1) {
+      watchButton1.innerText = 'Watch';
+      watchButton1.addEventListener('click', () => {
         const movieWatchPageUrl = '../views/watch.html';
-        const urlWithQuery = `${movieWatchPageUrl}?imdbID=${result.imdbID}&title=${result.Title}`;
+        const urlWithQuery = `${movieWatchPageUrl}?imdbID=${result.imdbID}&title=${result.Title}&service=1`;
         window.location.href = urlWithQuery;
       });
     } else {
-      watchButton.disabled = true;
-      watchButton.style.cursor = 'not-allowed';
-      watchButton.innerText = 'Unavailable to watch';
+      watchButton1.disabled = true;
+      watchButton1.style.cursor = 'not-allowed';
+      watchButton1.innerText = 'Unavailable to watch';
+    }
+
+    if (isAvailable2) {
+      watchButton2.innerText = 'Watch';
+      watchButton2.addEventListener('click', () => {
+        const movieWatchPageUrl = '../views/watch.html';
+        const urlWithQuery = `${movieWatchPageUrl}?imdbID=${result.imdbID}&title=${result.Title}&service=2`;
+        window.location.href = urlWithQuery;
+      });
+    } else {
+      watchButton2.disabled = true;
+      watchButton2.style.cursor = 'not-allowed';
+      watchButton2.innerText = 'Unavailable to watch';
     }
 
     // Function to check link availability
